@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>To-Do List</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h1>My To-Do List</h1>
+
+  <form action="/add" method="post">
+    <input type="text" name="task" placeholder="New Task">
+    <button type="submit">Add</button>
+  </form>
+
+  <ul>
+    <% settings.tasks.each_with_index do |task, i| %>
+      <li class="<%= 'done' if task[:done] %>">
+        <%= task[:description] %>
+        <% unless task[:done] %>
+          <form action="/complete/<%= i %>" method="post" style="display:inline">
+            <button type="submit">✓</button>
+          </form>
+        <% end %>
+        <form action="/delete/<%= i %>" method="post" style="display:inline">
+          <button type="submit">✗</button>
+        </form>
+      </li>
+    <% end %>
+  </ul>
+</body>
+</html>
